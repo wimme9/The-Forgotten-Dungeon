@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ห้องเรียนครูวิมมี่ - The Forgotten Dungeon</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+            --bg-color: #0f172a; /* พื้นหลังมืดสไตล์ Tech */
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Sarabun', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Hero Header Section */
+        header {
+            background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.15), transparent),
+                        radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.1), transparent);
+            padding: 60px 20px 40px 20px;
+            text-align: center;
+        }
+
+        .badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+        }
+
+        header h1 {
+            margin: 20px 0 10px 0;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Main Grid Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        /* Modern Glassmorphism Card */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(8px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        /* แสงวิบวับเวลา Hover */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: var(--primary-gradient);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.01);
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card-number {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #06b6d4;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            margin: 0 0 12px 0;
+            font-size: 1.35rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .card-desc {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(148, 163, 184, 0.5);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 640px) {
+            header h1 { font-size: 1.9rem; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="badge">ห้องเรียนครูวิมมี่</span>
+        <h1>การประยุกต์ใช้เทคโนโลยีดิจิทัลในงานอาชีพ</h1>
+        <p>คลังบทเรียนและสื่อการสอนออนไลน์สำหรับอนาคต</p>
+    </header>
+
+    <main>
+        <div class="grid-container">
+            
+            <a href="001/index.html" class="card">
+                <div class="card-number">Number 01</div>
+                <h3 class="card-title">กีรติ</h3>
+            </a>
+
+            <a href="002/index.html" class="card">
+                <div class="card-number">Chapter 02</div>
+                <h3 class="card-title">Digital Productivity Tools</h3>
+                <p class="card-desc">เพิ่มประสิทธิภาพการทำงานในองค์กรด้วยเครื่องมือดิจิทัลและเทคโนโลยีซอฟต์แวร์ยุคใหม่</p>
+            </a>
+
+            <a href="003/index.html" class="card">
+                <div class="card-number">Chapter 03</div>
+                <h3 class="card-title">Cloud Collaboration</h3>
+                <p class="card-desc">การทำงานร่วมกันแบบไร้รอยต่อบนระบบคลาวด์ การแชร์ข้อมูล และการสื่อสารภายในทีมออนไลน์</p>
+            </a>
+
+            <a href="004/index.html" class="card">
+                <div class="card-number">Chapter 04</div>
+                <h3 class="card-title">Digital Content Creation</h3>
+                <p class="card-desc">เทคนิคและเครื่องมือสร้างสรรค์คอนเทนต์ สื่อดิจิทัล และอินโฟกราฟิกเพื่อประยุกต์ใช้ในงานอาชีพ</p>
+            </a>
+
+            <a href="005/index.html" class="card">
+                <div class="card-number">Chapter 05</div>
+                <h3 class="card-title">Blockchain & Digital Finance</h3>
+                <p class="card-desc">เจาะลึกเทคโนโลยีบล็อกเชน นวัตกรรมทางการเงิน สินทรัพย์ดิจิทัล และโอกาสในโลกธุรกิจ</p>
+            </a>
+
+            <a href="006/index.html" class="card">
+                <div class="card-number">Chapter 06</div>
+                <h3 class="card-title">AI in Professional Careers</h3>
+                <p class="card-desc">ก้าวล้ำด้วยการนำปัญญาประดิษฐ์ (AI Tools) เข้ามาช่วยวิเคราะห์และทุ่นแรงในการทำงานจริง</p>
+            </a>
+
+            <a href="007/index.html" class="card">
+                <div class="card-number">Chapter 07</div>
+                <h3 class="card-title">Cyber Security</h3>
+                <p class="card-desc">แนวคิดความปลอดภัยทางไซเบอร์ การป้องกันภัยคุกคาม และการรักษาความปลอดภัยของข้อมูลวิชาชีพ</p>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 ห้องเรียนครูวิมมี่ | รายวิชา การประยุกต์ใช้เทคโนโลยีดิจิทัลในงานอาชีพ</p>
+    </footer>
+
+</body>
+</html>
