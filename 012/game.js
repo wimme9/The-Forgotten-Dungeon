@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 // ================= ห้อง (พื้นหลัง) =================
 const rooms = [
     { x: 40, y: 40, w: 240, h: 180, quest: "เควส: ค้นหาคัมภีร์เวทมนตร์ที่ถูกต้อง" },
-    { x: 360, y: 40, w: 280, h: 180, quest: "เควส: หมุนรูปปั้นให้หันถูกทิศ" },
+    { x: 360, y: 40, w: 280, h: 180, quest: "เควส: หมุนรูปปั้นให้หันถูกทิศ (ดูป้ายเหนือรูปปั้น)" },
     { x: 360, y: 340, w: 280, h: 180, quest: "เควส: จุดคบเพลิงเรียงลำดับจาก 1-4" },
     { x: 720, y: 340, w: 240, h: 180, quest: "เควส: เลือกเปิดหีบกุญแจ (ระวังกับดัก)" }
 ];
@@ -62,7 +62,7 @@ let currentStep = 0;
 let torchesSolved = false;
 
 // ================= MISSION 4 =================
-const npc = { x: 760, y: 480, size: 60, name: "ผู้เฒ่าแห่งวิหาร" };
+const npc = { x: 760, y: 480, size: 100, name: "ผู้เฒ่าแห่งวิหาร" };
 const npcImg = new Image();
 npcImg.src = "assets/sprite/npc.png";
 
@@ -86,6 +86,14 @@ const chestImg = new Image();
 chestImg.src = "assets/sprite/box.png";
 let gameCleared = false;
 let isTrapped = false;
+
+// ================= ระยะโต้ตอบ =================
+const interactRadius = 70;
+function isNear(px, py, ox, oy, radius = interactRadius) {
+    let dx = px - ox;
+    let dy = py - oy;
+    return (dx * dx + dy * dy) <= radius * radius;
+}
 
 // ================= ตัวละคร =================
 const player = {
@@ -160,6 +168,10 @@ canvas.addEventListener("click", (e) => {
     for (let i = 0; i < books.length; i++) {
         let b = books[i];
         if (clickX >= b.x - bookSize / 2 && clickX <= b.x + bookSize / 2 && clickY >= b.y - bookSize / 2 && clickY <= b.y + bookSize / 2) {
+            if (!isNear(player.x, player.y, b.x, b.y)) {
+                activeMessage = "คุณอยู่ไกลเกินไป เข้าไปใกล้ๆ ก่อนสิ";
+                return;
+            }
             activeMessage = b.message;
             if (b.correct && !hasMagicScroll) {
                 hasMagicScroll = true;
@@ -173,8 +185,18 @@ canvas.addEventListener("click", (e) => {
     for (let i = 0; i < statues.length; i++) {
         let s = statues[i];
         if (clickX >= s.x - statueSize / 2 && clickX <= s.x + statueSize / 2 && clickY >= s.y - statueSize / 2 && clickY <= s.y + statueSize / 2) {
+            if (!isNear(player.x, player.y, s.x, s.y)) {
+                activeMessage = "คุณอยู่ไกลเกินไป เข้าไปใกล้ๆ ก่อนสิ";
+                return;
+            }
             s.angle = (s.angle + 90) % 360;
-            activeMessage = `คุณหมุน "${s.name}" ไปที่ทิศ ${getDirectionName(s.angle)}`;
+            let isCorrect = s.angle === s.targetAngle;
+            let correctCount = statues.filter(st => st.angle === st.targetAngle).length;
+            if (isCorrect) {
+                activeMessage = `✅ "${s.name}" หันถูกทิศแล้ว! (${correctCount}/4 ตัว)`;
+            } else {
+                activeMessage = `หมุน "${s.name}" ไปทาง ${getDirectionName(s.angle)}... ดูป้ายสีเหลืองเหนือรูปปั้นเพื่อดูทิศที่ต้องการ (${correctCount}/4 ตัว)`;
+            }
             checkStatuesPuzzle();
             return;
         }
@@ -185,6 +207,10 @@ canvas.addEventListener("click", (e) => {
         let t = torches[i];
         if (clickX >= t.x - torchSize / 2 && clickX <= t.x + torchSize / 2 && clickY >= t.y - torchSize / 2 && clickY <= t.y + torchSize / 2) {
             if (torchesSolved) return;
+            if (!isNear(player.x, player.y, t.x, t.y)) {
+                activeMessage = "คุณอยู่ไกลเกินไป เข้าไปใกล้ๆ ก่อนสิ";
+                return;
+            }
             if (t.id === correctSequence[currentStep]) {
                 t.isOn = true;
                 currentStep++;
@@ -206,6 +232,10 @@ canvas.addEventListener("click", (e) => {
 
     // --- คลิก NPC ---
     if (clickX >= npc.x - npc.size / 2 && clickX <= npc.x + npc.size / 2 && clickY >= npc.y - npc.size / 2 && clickY <= npc.y + npc.size / 2) {
+        if (!isNear(player.x, player.y, npc.x, npc.y)) {
+            activeMessage = "คุณอยู่ไกลเกินไป เข้าไปใกล้ๆ ก่อนสิ";
+            return;
+        }
         if (!npcTalked) {
             currentDialogueIndex = 0;
             activeMessage = npcDialogues[currentDialogueIndex];
@@ -220,6 +250,10 @@ canvas.addEventListener("click", (e) => {
         let c = chests[i];
         if (clickX >= c.x - chestSize / 2 && clickX <= c.x + chestSize / 2 && clickY >= c.y - chestSize / 2 && clickY <= c.y + chestSize / 2) {
             if (c.isOpened || gameCleared) return;
+            if (!isNear(player.x, player.y, c.x, c.y)) {
+                activeMessage = "คุณอยู่ไกลเกินไป เข้าไปใกล้ๆ ก่อนสิ";
+                return;
+            }
             c.isOpened = true;
             if (c.isCorrect) {
                 gameCleared = true;
@@ -242,6 +276,14 @@ function getDirectionName(angle) {
     if (angle === 180) return "ใต้ (↓)";
     if (angle === 270) return "ตะวันตก (←)";
     return angle + "°";
+}
+
+function getArrowSymbol(angle) {
+    if (angle === 0) return "↑";
+    if (angle === 90) return "→";
+    if (angle === 180) return "↓";
+    if (angle === 270) return "←";
+    return "?";
 }
 
 function checkStatuesPuzzle() {
@@ -343,7 +385,30 @@ function drawStatues() {
             ctx.lineTo(-10, 0); ctx.lineTo(10, 0); ctx.closePath(); ctx.fill();
         }
         ctx.restore();
+
+        // ติ๊กถูกเล็กๆ มุมรูปปั้น เมื่อหันถูกทิศแล้ว (ไม่บังพื้นที่ห้อง)
+        if (s.angle === s.targetAngle) {
+            ctx.fillStyle = "#2ecc71";
+            ctx.font = "bold 14px sans-serif";
+            ctx.fillText("✔", s.x + statueSize / 2 - 4, s.y - statueSize / 2 + 4);
+        }
     });
+}
+
+// ป้ายบอกทิศข้างตัวละคร แสดงเฉพาะตอนเข้าใกล้รูปปั้นที่ยังหันผิดทิศ
+function drawStatueHintNearPlayer() {
+    for (let i = 0; i < statues.length; i++) {
+        let s = statues[i];
+        if (s.angle === s.targetAngle) continue;
+        if (isNear(player.x, player.y, s.x, s.y)) {
+            ctx.textAlign = "center";
+            ctx.font = "bold 22px sans-serif";
+            ctx.fillStyle = "#f1c40f";
+            ctx.fillText(getArrowSymbol(s.targetAngle), player.x + player.width / 2 + 20, player.y - 10);
+            ctx.textAlign = "left";
+            break;
+        }
+    }
 }
 
 function drawTorches() {
@@ -472,6 +537,8 @@ function draw() {
     } else {
         ctx.fillStyle = "#e63946"; ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
     }
+
+    drawStatueHintNearPlayer();
 
     drawUI();
     drawMessageBox();
