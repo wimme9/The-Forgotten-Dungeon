@@ -68,7 +68,7 @@
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 24px;
             margin-top: 20px;
         }
@@ -78,11 +78,13 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 20px;
-            padding: 30px;
+            padding: 40px 20px;
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             backdrop-filter: blur(8px);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
@@ -113,27 +115,15 @@
             opacity: 1;
         }
 
-        .card-number {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #06b6d4;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
         .card-title {
-            margin: 0 0 12px 0;
-            font-size: 1.35rem;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .card-desc {
             margin: 0;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 300;
+            font-size: 2rem;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Footer */
@@ -147,7 +137,7 @@
 
         @media (max-width: 640px) {
             header h1 { font-size: 1.9rem; }
-            .grid-container { grid-template-columns: 1fr; }
+            .grid-container { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
         }
     </style>
 </head>
@@ -155,59 +145,70 @@
 
     <header>
         <span class="badge">ห้องเรียนครูวิมมี่</span>
-        <h1>การประยุกต์ใช้เทคโนโลยีดิจิทัลในงานอาชีพ</h1>
-        <p>คลังบทเรียนและสื่อการสอนออนไลน์สำหรับอนาคต</p>
+        <h1>The Forgotten Dungeon</h1>
+        <p>ระบบส่งคลังงานและผลงานเกมการตะลุยดันเจี้ยน</p>
     </header>
 
     <main>
         <div class="grid-container">
             
             <a href="001/index.html" class="card">
-                <div class="card-number">Number 01</div>
-                <h3 class="card-title">กีรติ</h3>
+                <h3 class="card-title">001</h3>
             </a>
 
             <a href="002/index.html" class="card">
-                <div class="card-number">Chapter 02</div>
-                <h3 class="card-title">Digital Productivity Tools</h3>
-                <p class="card-desc">เพิ่มประสิทธิภาพการทำงานในองค์กรด้วยเครื่องมือดิจิทัลและเทคโนโลยีซอฟต์แวร์ยุคใหม่</p>
+                <h3 class="card-title">002</h3>
             </a>
 
             <a href="003/index.html" class="card">
-                <div class="card-number">Chapter 03</div>
-                <h3 class="card-title">Cloud Collaboration</h3>
-                <p class="card-desc">การทำงานร่วมกันแบบไร้รอยต่อบนระบบคลาวด์ การแชร์ข้อมูล และการสื่อสารภายในทีมออนไลน์</p>
+                <h3 class="card-title">003</h3>
             </a>
 
             <a href="004/index.html" class="card">
-                <div class="card-number">Chapter 04</div>
-                <h3 class="card-title">Digital Content Creation</h3>
-                <p class="card-desc">เทคนิคและเครื่องมือสร้างสรรค์คอนเทนต์ สื่อดิจิทัล และอินโฟกราฟิกเพื่อประยุกต์ใช้ในงานอาชีพ</p>
+                <h3 class="card-title">004</h3>
             </a>
 
             <a href="005/index.html" class="card">
-                <div class="card-number">Chapter 05</div>
-                <h3 class="card-title">Blockchain & Digital Finance</h3>
-                <p class="card-desc">เจาะลึกเทคโนโลยีบล็อกเชน นวัตกรรมทางการเงิน สินทรัพย์ดิจิทัล และโอกาสในโลกธุรกิจ</p>
+                <h3 class="card-title">005</h3>
             </a>
 
             <a href="006/index.html" class="card">
-                <div class="card-number">Chapter 06</div>
-                <h3 class="card-title">AI in Professional Careers</h3>
-                <p class="card-desc">ก้าวล้ำด้วยการนำปัญญาประดิษฐ์ (AI Tools) เข้ามาช่วยวิเคราะห์และทุ่นแรงในการทำงานจริง</p>
+                <h3 class="card-title">006</h3>
             </a>
 
             <a href="007/index.html" class="card">
-                <div class="card-number">Chapter 07</div>
-                <h3 class="card-title">Cyber Security</h3>
-                <p class="card-desc">แนวคิดความปลอดภัยทางไซเบอร์ การป้องกันภัยคุกคาม และการรักษาความปลอดภัยของข้อมูลวิชาชีพ</p>
+                <h3 class="card-title">007</h3>
+            </a>
+
+            <a href="008/index.html" class="card">
+                <h3 class="card-title">008</h3>
+            </a>
+
+            <a href="009/index.html" class="card">
+                <h3 class="card-title">009</h3>
+            </a>
+
+            <a href="010/index.html" class="card">
+                <h3 class="card-title">010</h3>
+            </a>
+
+            <a href="011/index.html" class="card">
+                <h3 class="card-title">011</h3>
+            </a>
+
+            <a href="012/index.html" class="card">
+                <h3 class="card-title">012</h3>
+            </a>
+
+            <a href="013/index.html" class="card">
+                <h3 class="card-title">013</h3>
             </a>
 
         </div>
     </main>
 
     <footer>
-        <p>© 2026 ห้องเรียนครูวิมมี่ | รายวิชา การประยุกต์ใช้เทคโนโลยีดิจิทัลในงานอาชีพ</p>
+        <p>© 2026 ห้องเรียนครูวิมมี่ | The Forgotten Dungeon Project</p>
     </footer>
 
 </body>
